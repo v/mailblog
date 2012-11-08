@@ -1,0 +1,13 @@
+{
+    "SPF": "pass", 
+    "attachments": "0", 
+    "charsets": "{\"to\":\"UTF-8\",\"html\":\"ISO-8859-1\",\"subject\":\"UTF-8\",\"from\":\"UTF-8\",\"text\":\"ISO-8859-1\"}", 
+    "dkim": "{@gmail.com : pass}", 
+    "envelope": "{\"to\":[\"usacs@sendgriddemos.com\"],\"from\":\"vaibhav2614@gmail.com\"}", 
+    "from": "Vaibhav Verma <vaibhav2614@gmail.com>", 
+    "headers": "Received: by 127.0.0.1 with SMTP id GMr4PhNhE9 Sat, 03 Nov 2012 15:57:01 -0500 (CDT)\nReceived: from mail-ea0-f172.google.com (mail-ea0-f172.google.com [209.85.215.172]) by mx4.sendgrid.net (Postfix) with ESMTPS id CB9AE19D3411 for <usacs@sendgriddemos.com>; Sat,  3 Nov 2012 15:57:00 -0500 (CDT)\nReceived: by mail-ea0-f172.google.com with SMTP id k13so2372696eaa.17 for <usacs@sendgriddemos.com>; Sat, 03 Nov 2012 13:56:59 -0700 (PDT)\nDKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20120113; h=mime-version:date:message-id:subject:from:to:content-type; bh=4V5fUPvsKSN56WHAsPwyOVurLIut4hMk6SRg4ZaiRhM=; b=ejD8MnwUllCGgGT+Lhmrp1uXeDIhx6LdjV9PdYF+Iw2ZNV3LLLU7dJCcvtjBGygZwi 9GPbuXYHvioagFpXmyZGbosNQxQkJmHz+nFAGenJx9xvTxJDMJ2or0n8VSRbmKzi/qOh q52NKzydX8+xJqmc9pkboQZoMx0TAoBIvGKB8thcGq2tn/7h7V62eI1aAscuyEGnZvbU I/ejPKm+KOp5n8MPT5AzucbH+WlGsNPKdqNEeuQVEYosN7FbGgNsHWyd1m2wjzi5F3mv JK2oqKK3nMlm5wDnDdoI9+GFL8xLBQnwd95cN9ygAfIz+0U/y+vgi7iPS+nLSKxjxR8G xhbw==\nMIME-Version: 1.0\nReceived: by 10.14.173.137 with SMTP id v9mr20019461eel.41.1351976219553; Sat, 03 Nov 2012 13:56:59 -0700 (PDT)\nReceived: by 10.223.96.201 with HTTP; Sat, 3 Nov 2012 13:56:59 -0700 (PDT)\nDate: Sat, 3 Nov 2012 13:56:59 -0700\nMessage-ID: <CACz94qkCWvReB75oNVf37xTy5TfF386+HyZA289N3BYsGTK=_Q@mail.gmail.com>\nSubject: Welcome to USACS or something\nFrom: Vaibhav Verma <vaibhav2614@gmail.com>\nTo: usacs@sendgriddemos.com\nContent-Type: multipart/alternative; boundary=047d7b621ea04fb02804cd9d7e2e\n", 
+    "html": "USACS is a good club.\n", 
+    "subject": "Welcome to USACS or something", 
+    "text": "USACS is a good club.\n", 
+    "to": "usacs@sendgriddemos.com"
+}
