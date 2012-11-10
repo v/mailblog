@@ -13,6 +13,7 @@ class User(db.Model):
 
 class Email(db.Model):
     reply_regex = re.compile('[Rr][Ee]\:')
+    fwd_regex = re.compile('[Ff][Ww][Dd]*\:')
     _from = ForeignKeyField(User, related_name='emails')
     to = CharField()
 
@@ -28,6 +29,7 @@ class Email(db.Model):
     def get_thread(cls, subject):
         """ Returns the thread that this subject shoiuld be a part of """
         subject = re.sub(cls.reply_regex, '', subject).strip()
+        subject = re.sub(cls.fwd_regex, '', subject).strip()
         query = RawQuery(Email, 'SELECT * FROM email WHERE subject LIKE "%%%s%%"' % (subject))
         for obj in query.execute():
             return obj.thread
