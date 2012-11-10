@@ -75,4 +75,4 @@ def parse_email(text):
     m = re.search('(.+)<(.+)>', text)
     if m:
         return m.group(1).strip(), m.group(2).strip()
-    return None
+    return text, text
