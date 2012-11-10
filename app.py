@@ -46,9 +46,12 @@ def home(page_num):
 
 @app.route('/callback', methods=['GET', 'POST'])
 def callback():
-
     """ Handles the home page rendering."""
-    data = json.loads(request.data)
+
+    if request.data:
+        data = json.loads(request.data)
+    else:
+        data = request.form
 
     email_from = data['from']
     name, email = parse_email(email_from) 

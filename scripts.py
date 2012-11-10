@@ -3,8 +3,8 @@ from secrets import imap_username, imap_password, imap_host
 import imaplib
 import email
 import requests
-import json
 import re
+from email_remover import unquote
 
 site_url = 'http://0.0.0.0:8888'
 
@@ -15,6 +15,15 @@ def get_text_block(email_message):
             if part.get_content_maintype() == 'text':
                 return part.get_payload()
     elif maintype == 'text':
+        return email_message.get_payload()
+
+def get_html_block(email_message):
+    maintype = email_message.get_content_type()
+    if maintype == 'multipart':
+        for part in email_message.get_payload():
+            if part.get_content_type() == 'text/html':
+                return part.get_payload()
+    elif maintype == 'text/html':
         return email_message.get_payload()
 
 def remove_quoted_text(email):
@@ -72,21 +81,33 @@ def imap_populate():
         email_parsed = email.message_from_string(data[0][1])
         #email_text = email_parsed.get_payload()[0].get_payload()
         email_text = get_text_block(email_parsed)
+        html_text = get_html_block(email_parsed)
+
+        if not html_text:
+            html_text = email_text
 
         if email_text: 
             unquoted_text = remove_sig(unquote(email_text))
-            print unquoted_text
+            unquoted_html = remove_sig(unquote(html_text))
+            print unquoted_html
 
             _from = email_parsed.get('From')
             subject = email_parsed.get('Subject')
             time = email_parsed.get('Date')
 
             if subject and _from:
-                mock_email(_from, 'ru_cs@googlegroups.com', subject, unquoted_text, time=time)
+                mock_email(_from, 'ru_cs@googlegroups.com', subject, unquoted_text, unquoted_html, time=time)
         i += 1
-def mock_email(_from, to, subject, text, html=None, time=None):
+def mock_email(_from, to, subject, text, html=None, time=None, attachments=None):
     if not html:
         html = text
+
+    if not attachments:
+        attachments = []
+
+    files = {}
+    for attachment in attachments:
+        files[attachment] = open(attachment, 'rb').read()
 
     email_object = {
         'from': _from,
@@ -95,9 +116,10 @@ def mock_email(_from, to, subject, text, html=None, time=None):
         'text': text,
         'to': to,
         'time': time,
+        'attachments': len(attachments),
     }
 
-    r = requests.post(site_url+'/callback', data=json.dumps(email_object))
+    r = requests.post(site_url+'/callback', data=email_object, files=files)
     assert r.status_code == 200
 
 def reset_db():
@@ -109,17 +131,6 @@ def reset_db():
     Email.drop_table()
     Email.create_table()
 
-def unquote(email):
-
-    gmail_quote = '(On\s*.*wrote:)'
-
-    regex = re.compile(gmail_quote, flags=re.DOTALL)
-
-    m = re.search(regex, email)
-    if m:
-        return email[:m.start()]
-    return email
-
 def remove_sig(email):
     sig = '(\s+--(=20)*\s+.*)'
 
@@ -130,6 +141,6 @@ def remove_sig(email):
     return email
 
 if __name__ == '__main__':
-    mock_email('Herp <herp@herp.com>', 'ru_cs@googlegroups.com', 'herp', '<a href="http://google.com/">test</a>')
-    # reset_db()
-    # imap_populate()
+    #mock_email('Herp <herp@herp.com>', 'ru_cs@googlegroups.com', 'herp', '<a href="http://google.com/">test</a>', attachments=['fuck.txt'])
+    reset_db()
+    imap_populate()
