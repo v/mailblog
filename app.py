@@ -10,6 +10,7 @@ import json
 import re
 import os
 import datetime
+from dateutil.parser import parse
 import math
 
 POSTS_PER_PAGE = 10
@@ -60,13 +61,18 @@ def callback():
     user = User.get_or_create(name=name, email=email)
     thread=Email.get_thread(data['subject'])
 
+    if 'time' in data:
+        time = parse(data['time'])
+    else:
+        time = datetime.datetime.now()
+
     email = Email(
             _from=user, 
             to=data['to'], 
             subject=data['subject'], 
             text=data['text'], 
             html=data['html'], 
-            time=datetime.datetime.now(), 
+            time=time,
             thread=thread,
         )
 
