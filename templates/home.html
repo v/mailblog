@@ -19,6 +19,15 @@
 		</header>
 		<!-- END HEADER -->
 
+		<nav class='row'>
+			<div class='six column'>
+				<a href='/{{ page_num - 1 }}' class='medium round button {% if page_num == 1 %} disabled {% endif %}'>&larr; Newer posts</a>
+			</div>
+			<div class='six column older_post'>
+				<a href='/{{ page_num + 1 }}' class='medium round button {% if page_num == num_pages %} disabled {% endif %}'>Older posts &rarr;</a>
+			</div>
+		</nav>
+
 		{% for thread in threads %}
 		<div class='row thread'>
 			{% for post in thread %}
@@ -69,5 +78,18 @@
 			{% endfor %}
 		</div>
 		{% endfor %}
+
+		<nav class='row'>
+			<div class='six column'>
+				<a href='/{{ page_num-1 }}' class='medium round button {% if page_num == 1 %} disabled {% endif %}'>&larr; Newer posts</a>
+			</div>
+			<div class='six column older_post'>
+				<a href='/{{ page_num+1 }}' class='medium round button {% if page_num == num_pages %} disabled {% endif %}'>Older posts &rarr;</a>
+			</div>
+		</nav>
+
+		<script src='/static/js/jquery.js'></script>
+		<script src='/static/js/app.js'></script>
+
 	</body>
 </html>

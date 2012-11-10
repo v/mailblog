@@ -9,6 +9,14 @@ body {
 	background: url('/static/img/subtle_dots.png');
 }
 
+nav.row {
+	margin-bottom: 20px;
+}
+
+.button {
+	box-shadow: none;
+}
+
 .thread {
 	margin-bottom: 20px;
 }
@@ -20,7 +28,7 @@ body {
 
 .reply {
 	background: #00B4FF;
-	margin-bottom: 2px !important;
+	margin-bottom: 1px !important;
 	padding: 20px 20px 0 20px;
 }
 
@@ -38,5 +46,9 @@ body {
 	border-top: 1px dotted #EEE;
 	margin-top: 15px !important;
 	padding-top: 15px;
+	text-align: right;
+}
+
+.older_post {
 	text-align: right;
 }
