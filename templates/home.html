@@ -56,8 +56,15 @@
 							</div>
 						</div>
 					</div>
+					{% if loop.length > 1 %}
+						<div class='row show_replies'>
+							<div class='eleven centered columns center'>
+								<a href='#'>Show replies</a>
+							</div>
+						</div>
+					{% endif %}
 				{% else %}
-					<div class='row'>
+					<div class='row replies'>
 						<div class='eleven centered columns reply'>
 							<div class='row'>
 								<div class='two columns user_info'>

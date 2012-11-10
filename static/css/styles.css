@@ -45,6 +45,19 @@ nav.row {
 	padding: 20px 20px 0 20px;
 }
 
+.replies {
+	display: none;
+}
+
+.show_replies {
+	background: #00B4FF;
+	padding: 20px;
+}
+
+.show_replies a {
+	color: #EEE;
+}
+
 .reply {
 	background: #00B4FF;
 	margin-bottom: 1px !important;
@@ -70,4 +83,8 @@ nav.row {
 
 .older_post {
 	text-align: right;
+}
+
+.center {
+	text-align: center;
 }
