@@ -16,6 +16,7 @@ import math
 import ago
 
 POSTS_PER_PAGE = 10
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'psd', '.eps', '.doc', '.xls', '.csv', '.docx', '.epub'])
 
 # Set up the Flask application
 app = Flask(__name__)
