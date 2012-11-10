@@ -143,6 +143,6 @@ def remove_sig(email):
     return email
 
 if __name__ == '__main__':
-    #mock_email('Herp <herp@herp.com>', 'ru_cs@googlegroups.com', 'herp', '<a href="http://google.com/">test</a>', attachments=['fuck.txt'])
-    reset_db()
-    imap_populate()
+    mock_email('Herp <herp@herp.com>', 'ru_cs@googlegroups.com', 'herp', '<img src="http://www.google.com/images/srpr/logo3w.png" alt="testmebro" />')
+    # reset_db()
+    # imap_populate()
