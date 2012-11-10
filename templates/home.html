@@ -7,13 +7,14 @@
 			USACS
 		</title>
 
+		<link href='http://fonts.googleapis.com/css?family=Black+Ops+One' rel='stylesheet' type='text/css' />
 		<link rel='stylesheet' type='text/css' href='/static/css/foundation.min.css' />
 		<link rel='stylesheet' type='text/css' href='/static/css/styles.css' />
 
 	</head>
 	<body>
 		<!-- HEADER -->
-		<header class='row'>
+		<header id='banner'>
 			<h1>USACS</h1>
 			<p class='subheader'>Undergraduate Student Alliance of Computer Scientists</p>
 		</header>
@@ -55,8 +56,15 @@
 							</div>
 						</div>
 					</div>
+					{% if loop.length > 1 %}
+						<div class='row show_replies'>
+							<div class='eleven centered columns center'>
+								<a href='#'>Show replies</a>
+							</div>
+						</div>
+					{% endif %}
 				{% else %}
-					<div class='row'>
+					<div class='row replies'>
 						<div class='eleven centered columns reply'>
 							<div class='row'>
 								<div class='two columns user_info'>
