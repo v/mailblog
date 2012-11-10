@@ -4,6 +4,16 @@
 	float: none;
 }
 
+.button,
+.button.disabled {
+	border-color: #000;
+	background: #272822;
+}
+
+.button:hover {
+	background: #494A44;
+}
+
 /* CUSTOM STYLES */
 body {
 	background: url('/static/img/subtle_dots.png');
