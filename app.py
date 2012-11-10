@@ -65,7 +65,15 @@ def callback():
     name, email = parse_email(email_from) 
     
     user = User.get_or_create(name=name, email=email)
-    thread = Email.get_thread(data['subject'])
+    subject = data['subject']
+
+    reply_regex = re.compile('[Rr][Ee]\s*\:')
+    fwd_regex = re.compile('[Ff][Ww][Dd]*\s*\:')
+
+    subject = re.sub(reply_regex, '', subject).strip()
+    subject = re.sub(fwd_regex, '', subject).strip()
+
+    thread = Email.get_thread(subject)
 
     if 'time' in data:
         time = parse(data['time'])
@@ -75,7 +83,7 @@ def callback():
     email = Email(
             _from=user, 
             to=data['to'], 
-            subject=data['subject'], 
+            subject=subject,
             text=data['text'], 
             html=data['html'], 
             time=time,

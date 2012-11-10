@@ -89,11 +89,13 @@ def imap_populate():
         if email_text: 
             unquoted_text = remove_sig(unquote(email_text))
             unquoted_html = remove_sig(unquote(html_text))
-            print unquoted_html
 
             _from = email_parsed.get('From')
             subject = email_parsed.get('Subject')
             time = email_parsed.get('Date')
+
+            print unquoted_html
+            print "Subject: ", subject
 
             if subject and _from:
                 mock_email(_from, 'ru_cs@googlegroups.com', subject, unquoted_text, unquoted_html, time=time)
