@@ -4,6 +4,8 @@ import email
 import requests
 import json
 import re
+import subprocess
+import shlex
 
 site_url = 'http://0.0.0.0:8888'
 
@@ -48,7 +50,6 @@ def remove_quoted_text(email):
     quoted_text_beginning = re.compile("(?i)(?:(?:" + lead_in_line + ")?" + "(?:(?:" +subject_or_address_line + ")|(?:" + date_line + ")){2,6})|(?:" + gmail_quoted_text_beginning + ")")
 
     result = re.search(quoted_text_beginning, email)
-    import pdb; pdb.set_trace()
     if result:
         return email[:result.start()]
 
@@ -66,7 +67,7 @@ def imap_populate():
 
     i = 0
 
-    for email_id in email_ids[0].split():
+    for email_id in reversed(email_ids[0].split()):
         typ, data = mail.fetch(email_id, '(RFC822)')
 
         i += 1
@@ -74,18 +75,15 @@ def imap_populate():
         #email_text = email_parsed.get_payload()[0].get_payload()
         email_text = get_text_block(email_parsed)
 
-        if email_text:
-            unquoted_text = remove_quoted_text(email_text)
+        if email_text: 
+            unquoted_text = unquote(email_text)
             print unquoted_text
 
             _from = email_parsed.get('From')
             subject = email_parsed.get('Subject')
 
-            mock_email(_from, 'ru_cs@googlegroups.com', subject, unquoted_text)
-
-        if i == 100:
-            break
-
+            if subject and _from:
+                mock_email(_from, 'ru_cs@googlegroups.com', subject, unquoted_text)
 def mock_email(_from, to, subject, text, html=None):
     if not html:
         html = text
@@ -99,7 +97,6 @@ def mock_email(_from, to, subject, text, html=None):
     }
 
     r = requests.post(site_url+'/callback', data=json.dumps(email_object))
-    print r.text
     assert r.status_code == 200
 
 def reset_db():
@@ -111,9 +108,18 @@ def reset_db():
     Email.drop_table()
     Email.create_table()
 
+def unquote(email):
+
+    gmail_quote = '(On\s*.*wrote:)'
+
+    regex = re.compile(gmail_quote, flags=re.DOTALL)
+
+    m = re.search(regex, email)
+    if m:
+        return email[:m.start()]
+    return email
 
 if __name__ == '__main__':
-    # mock_email('gerard <grardb@gmail.com>', 'vaibhav <vaibhav2614@gmail.com>', 're: HERP DERP', "herp in the derp lerp")
-    # reset_db()
-    # imap_populate()
-
+    #mock_email('Herp <herp@herp.com>', 'ru_cs@googlegroups.com', 'herp', 'derp')
+    reset_db()
+    imap_populate()
