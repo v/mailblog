@@ -130,21 +130,5 @@ class MailBlogTestCase(unittest.TestCase):
 
         result = thread_query.execute()
         assert len(list(result)) == 1
-
-def mock_email(name, email, to, subject, text, html=None):
-    if not html:
-        html = text
-
-    email_object = {
-        'from': '%s <%s>' % (name, email),
-        'html': html,
-        'subject': subject,
-        'text': text,
-        'to': to,
-    }
-
-    r = requests.post(site_url+'/callback', data=json.dumps(email_object))
-    print r.text
-    assert r.status_code == 200
 if __name__ == '__main__':
     unittest.main()

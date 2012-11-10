@@ -1,8 +1,14 @@
 Gerard
-    - Make sure emails can't be parsed in the HTML body.
+    - Make sure emails can't be parsed in the HTML body. NO <script> tags
+    - Show attachments.
+     * upload them to our server
+     * Create an attachments table foreign keyed with email.
+     * Make sure we can't be CTFed when serving attachments.
     - Allow us to show rich content in a better way
         * Perhaps compile all the links in a post and put them at the bottom.
     - Make it scale on usacs.rutgers.edu
 
 Vaibhav
     - Write an IMAP Wrapper to query rutgersusacs@gmail.com.
+    - Make quoted text scale recurisvely.
+    - Write an IMAP wrapper to submit attachments to you.
