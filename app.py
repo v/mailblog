@@ -98,6 +98,10 @@ def sanitize_html(value):
                 tag.attrs = tag.attrs = {
                     'href' : tag.attrs['href']
                 }
+            elif tag.name == 'img' and tag.attrs.has_key('src'):
+                tag.attrs = {
+                    'src' : tag.attrs['src']
+                }
             else:
                 tag.attr = {}
             if tag.name not in VALID_TAGS:

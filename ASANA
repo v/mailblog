@@ -5,7 +5,6 @@ Gerard
      * Make sure we can't be CTFed when serving attachments.
     - Make it scale on usacs.rutgers.edu
     - Get hacknjill@sendgriddemos.com
-    - Make USACS in config file.
     - Make README for "INSTALLATION" in Github
 
 Vaibhav
