@@ -18,3 +18,4 @@ class TestConfiguration(object):
     }
     DEBUG = True
     SECRET_KEY = 'EPIUWYE)WYE&*W&TEFSGDSUHSTU(PWA^*WATGFESDIUASHDK:PD'
+    TESTING = True
