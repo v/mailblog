@@ -6,7 +6,11 @@
 
 .button,
 .button.disabled {
-	border-color: #000;
+	border-color: #222;
+	background: #272822;
+}
+
+.button.disabled:hover {
 	background: #272822;
 }
 
@@ -102,4 +106,8 @@ nav.row {
 
 .center {
 	text-align: center;
+}
+
+.avatar {
+	margin-top: 20px;
 }
