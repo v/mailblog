@@ -1,3 +1,4 @@
+# vim: set expandtab sw=4 ts=4 softtabstop=4 autoindent smartindent:
 """ This file sets up the Flask Application for sniper.
     Sniper is an application that hits the Rutgers SOC API and notifies users when a class opens up. """
 
