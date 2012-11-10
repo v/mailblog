@@ -7,6 +7,7 @@ from flask_peewee.db import Database
 from peewee import RawQuery
 from bs4 import BeautifulSoup
 from dateutil.parser import parse
+from email_remover import unquote
 
 import json
 import re
@@ -80,16 +81,18 @@ def callback():
     else:
         time = datetime.datetime.now()
 
+    text = unquote(data['text'])
+
     if 'html' in data:
-        html = data['html']
+        html = unquote(data['html'])
     else:
-        html = data['text']
+        html = text
 
     email = Email(
             _from=user, 
             to=data['to'], 
             subject=subject,
-            text=data['text'], 
+            text=text,
             html=html,
             time=time,
             thread=thread,
