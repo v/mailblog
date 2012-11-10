@@ -1,0 +1,42 @@
+/* OVERWRITE FOUNDATION */
+
+.centered.columns:last-child {
+	float: none;
+}
+
+/* CUSTOM STYLES */
+body {
+	background: url('/static/img/subtle_dots.png');
+}
+
+.thread {
+	margin-bottom: 20px;
+}
+
+.post {
+	background: #515151;
+	padding: 20px 20px 0 20px;
+}
+
+.reply {
+	background: #00B4FF;
+	margin-bottom: 2px !important;
+	padding: 20px 20px 0 20px;
+}
+
+.user_info {
+	text-align: center;
+}
+
+.username {
+	display: block;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.time {
+	border-top: 1px dotted #EEE;
+	margin-top: 15px !important;
+	padding-top: 15px;
+	text-align: right;
+}

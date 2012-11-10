@@ -1,47 +1,73 @@
-{# vim: set expandtab sw=4 ts=4 softtabstop=4 autoindent smartindent: #}
+{# vim: set sw=2 ts=2 softtabstop=2 autoindent smartindent: #}
 <!doctype html>
 <html>
-    <head>
-        <meta charset='utf-8' />
-        <title>
-            USACS
-        </title>
+	<head>
+		<meta charset='utf-8' />
+		<title>
+			USACS
+		</title>
 
-        <link href='/static/css/bootstrap.css' rel='stylesheet' type='text/css' />
-        <link href='/static/css/bootstrap-responsive.css' rel='stylesheet' type='text/css' />
-        <link href='/static/css/m-styles.min.css' rel='stylesheet' type='text/css' />
-        <link href='/static/css/m-forms.min.css' rel='stylesheet' type='text/css' />
-        <link href='/static/css/m-buttons.css' rel='stylesheet' type='text/css' />
-        <link href='/static/css/custom.css' rel='stylesheet' type='text/css' />
-        <link href='/static/css/jquery.fancybox-1.3.4.css' rel='stylesheet' type='text/css' />  
-    </head>
-    <body>
-        <!-- HEADER -->
-        <header class='row-fluid'>
-            <div class='container'>
-                <div class='span12'>
-                    <h1>USACS</h1>
-                    <p class='lead'>Undergraduate Student Alliance of Computer Scientists</p>
-                </div>
-            </div>
-        </header>
-        <!-- END HEADER -->
+		<link rel='stylesheet' type='text/css' href='/static/css/foundation.min.css' />
+		<link rel='stylesheet' type='text/css' href='/static/css/styles.css' />
 
-        {% for thread in threads %}
-            <div class='row-fluid'>
-                <div class='container'>
-                    <div class='span12'>
-                        <h3>{{ thread[0].subject }}</h3>
-                        {% for post in thread %}
-                            <div class='row-fluid'>
-                                <div class='span12'>
-                                    {{ post.text }}
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </body>
+	</head>
+	<body>
+		<!-- HEADER -->
+		<header class='row'>
+			<h1>USACS</h1>
+			<p class='subheader'>Undergraduate Student Alliance of Computer Scientists</p>
+		</header>
+		<!-- END HEADER -->
+
+		{% for thread in threads %}
+		<div class='row thread'>
+			{% for post in thread %}
+				{% if loop.first %}
+					<div class='row'>
+						<div class='twelve columns post'>
+							<div class='row'>
+								<div class='two columns user_info'>
+									<img src='{{ post._from.gravatar_url() }}' alt='{{ post._from.name }}' />
+									<span class='username'> {{ post._from.name }}</span>
+								</div>
+								<div class='ten columns'>
+									<div class='row'>
+										<div class='twelve columns'>
+											<h2>{{ post.subject }}</h2>
+											<p>{{ post.text }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='time row'>
+								<div class='twelve columns'>
+									<p>{{ post.time.strftime('%m/%d/%Y %I:%M%p') }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<div class='row'>
+						<div class='eleven centered columns reply'>
+							<div class='row'>
+								<div class='two columns user_info'>
+									<img src='{{ post._from.gravatar_url() }}' alt='{{ post._from.name }}' />
+									<span class='username'> {{ post._from.name }}</span>
+								</div>
+								<div class='ten columns'>
+									<p>{{ post.text }}</p>
+								</div>
+							</div>
+							<div class='time row'>
+								<div class='twelve columns'>
+									<p>{{ post.time.strftime('%m/%d/%Y %I:%M%p') }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+		{% endfor %}
+	</body>
 </html>
