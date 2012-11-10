@@ -96,7 +96,6 @@ class MailBlogTestCase(unittest.TestCase):
         to = 'usacs@sendgriddemos.com'
 
         subject = 'Derping the Herp'
-        reply_subject = 'Re: '+subject
         different_subject = 'Not Derping the Herp'
         text = 'AINT NOBODY GOT TIME FO DAT'
 
@@ -104,6 +103,13 @@ class MailBlogTestCase(unittest.TestCase):
 
         for i in range(0, 10):
             _from = froms[i % len(froms)]
+
+            if i % 2 == 0:
+                herp = 'Re: '
+            else:
+                herp = 'Fw: '
+
+            reply_subject = herp*i + subject
             
             self.mock_email(_from[0], _from[1], to, reply_subject, text)
 
