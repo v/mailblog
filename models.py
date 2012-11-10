@@ -48,3 +48,8 @@ class Email(db.Model):
             self.time = parse(self.time)
         self.time = self.time.replace(tzinfo=None)
         return self.time
+
+class Attachment(db.Model):
+    filename = CharField()
+    path = CharField()
+    email = ForeignKeyField(Email, related_name='attachments')
