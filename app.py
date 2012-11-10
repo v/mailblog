@@ -1,3 +1,4 @@
+# vim: set expandtab sw=4 ts=4 softtabstop=4 autoindent smartindent:
 """ This file sets up the Flask Application for sniper.
     Sniper is an application that hits the Rutgers SOC API and notifies users when a class opens up. """
 
@@ -30,6 +31,7 @@ class User(db.Model):
 
 
 class Email(db.Model):
+    reply_regex = re.compile('[Rr][Ee]\:')
     _from = ForeignKeyField(User, related_name='emails')
     to = CharField()
 
@@ -44,6 +46,7 @@ class Email(db.Model):
     @classmethod
     def get_thread(cls, subject):
         """ Returns the thread that this subject shoiuld be a part of """
+        subject = re.sub(cls.reply_regex, '', subject).strip()
         query = RawQuery(Email, 'SELECT * FROM email WHERE subject LIKE "%%%s%%"' % (subject))
         for obj in query.execute():
             return obj.thread
