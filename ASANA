@@ -4,8 +4,13 @@ Gerard
      * Create an attachments table foreign keyed with email.
      * Make sure we can't be CTFed when serving attachments.
     - Make it scale on usacs.rutgers.edu
+    - Get hacknjill@sendgriddemos.com
+    - Make USACS in config file.
+    - Make README for "INSTALLATION" in Github
 
 Vaibhav
     - Write an IMAP Wrapper to query rutgersusacs@gmail.com.
     - Make quoted text scale recurisvely.
-    - Write an IMAP wrapper to submit attachments to you.
+    - Write an IMAP wrapper to submit HTML Email to you.
+    - Integrate Kike
+    - Integrate attach
