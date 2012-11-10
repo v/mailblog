@@ -51,7 +51,7 @@
 							</div>
 							<div class='time row'>
 								<div class='twelve columns'>
-									<p>{{ post.time }}</p>
+									<p>Posted {{ post.get_time()|human_time }} ago</p>
 								</div>
 							</div>
 						</div>
@@ -77,7 +77,7 @@
 							</div>
 							<div class='time row'>
 								<div class='twelve columns'>
-									<p>{{ post.time }}</p>
+									<p>Posted {{ post.get_time()|human_time }} ago</p>
 								</div>
 							</div>
 						</div>

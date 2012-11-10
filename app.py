@@ -6,13 +6,14 @@ from flask import Flask, request, render_template
 from flask_peewee.db import Database
 from peewee import RawQuery
 from bs4 import BeautifulSoup
+from dateutil.parser import parse
 
 import json
 import re
 import os
 import datetime
-from dateutil.parser import parse
 import math
+import ago
 
 POSTS_PER_PAGE = 10
 
@@ -29,24 +30,17 @@ from models import User, Email
 @app.route('/<int:page_num>', methods=['GET', 'POST'])
 def home(page_num):
     """ Handles the home page rendering."""
-    thread_id_query = 'SELECT DISTINCT thread FROM email ORDER BY thread DESC, time ASC LIMIT %d, %d' % \
+    thread_id_query = 'SELECT DISTINCT thread FROM email ORDER BY time DESC LIMIT %d, %d' % \
             (POSTS_PER_PAGE*(page_num-1), POSTS_PER_PAGE)
     thread_ids = [email.thread for email in RawQuery(Email, thread_id_query)]
 
-    threads_query = 'SELECT * FROM email WHERE thread IN %s ORDER BY thread DESC, time ASC' % str(tuple(thread_ids))
-    all_threads = RawQuery(Email, threads_query)
+    threads = []
+    for thread_id in thread_ids:
+        emails_query = 'SELECT * FROM email WHERE thread = %d ORDER BY time ASC' % thread_id
+        threads.append([email for email in RawQuery(Email, emails_query)])
 
     num_pages = math.ceil(Email.select().group_by(Email.thread).count()/float(POSTS_PER_PAGE))
-    threads = []
 
-    last_thread_id = None
-
-    for email in all_threads:
-        thread_id = email.thread
-        if thread_id != last_thread_id:
-            threads.append([])
-        threads[-1].append(email)
-        last_thread_id = thread_id
     return render_template('home.html', threads=threads, page_num=page_num, num_pages=num_pages)
 
 
@@ -106,3 +100,5 @@ def sanitize_html(value):
         return value
 
 app.jinja_env.filters['sanitize'] = sanitize_html
+app.jinja_env.filters['human_time'] = ago.human
+
