@@ -77,7 +77,7 @@ def callback():
 def parse_email(text):
     m = re.search('(.+)<(.+)>', text)
     if m:
-        return m.group(1).strip(), m.group(2).strip()
+        return m.group(1).strip('\'" '), m.group(2).strip('\'" ')
     return text, text
 
 VALID_TAGS = ['strong', 'em', 'p', 'ul', 'li', 'br', 'table', 'tr', 'td', 'b', 'i', 'a']
