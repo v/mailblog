@@ -32,9 +32,12 @@ body {
 }
 
 #banner h1 {
-	color: #EEE;
 	font-family: 'Black Ops One', cursive;
 	font-size: 64pt;
+}
+
+#banner h1 a {
+	color: #EEE;
 }
 
 #banner .subheader {
