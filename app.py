@@ -80,12 +80,17 @@ def callback():
     else:
         time = datetime.datetime.now()
 
+    if 'html' in data:
+        html = data['html']
+    else:
+        html = data['text']
+
     email = Email(
             _from=user, 
             to=data['to'], 
             subject=subject,
             text=data['text'], 
-            html=data['html'], 
+            html=html,
             time=time,
             thread=thread,
         )
