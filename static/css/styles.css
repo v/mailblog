@@ -4,6 +4,16 @@
 	float: none;
 }
 
+.button,
+.button.disabled {
+	border-color: #000;
+	background: #272822;
+}
+
+.button:hover {
+	background: #494A44;
+}
+
 /* CUSTOM STYLES */
 body {
 	background: url('/static/img/subtle_dots.png');
@@ -41,7 +51,7 @@ nav.row {
 }
 
 .post {
-	background: #515151;
+	background: #EEE;
 	padding: 20px 20px 0 20px;
 }
 
@@ -54,17 +64,18 @@ nav.row {
 }
 
 .show_replies {
-	background: #00B4FF;
-	padding: 20px;
+	background: #272822;
 }
 
 .show_replies a {
 	color: #EEE;
+	display: block;
+	line-height: 50px;
 }
 
 .reply {
-	background: #00B4FF;
-	margin-bottom: 1px !important;
+	border: 1px solid #272822;
+	border-top: none;
 	padding: 20px 20px 0 20px;
 }
 
@@ -79,7 +90,7 @@ nav.row {
 }
 
 .time {
-	border-top: 1px dotted #EEE;
+	border-top: 1px dotted #272822;
 	margin-top: 15px !important;
 	padding-top: 15px;
 	text-align: right;

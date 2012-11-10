@@ -44,14 +44,14 @@
 									<div class='row'>
 										<div class='twelve columns'>
 											<h2>{{ post.subject }}</h2>
-											<p class='email_body'>{{ post.text }}</p>
+											<p class='email_body'>{{ post.text|trim|sanitize|safe }}</p>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class='time row'>
 								<div class='twelve columns'>
-									<p>{{ post.time.strftime('%m/%d/%Y %I:%M%p') }}</p>
+									<p>Posted {{ post.get_time()|human_time }} ago</p>
 								</div>
 							</div>
 						</div>
@@ -72,12 +72,12 @@
 									<span class='username'> {{ post._from.name }}</span>
 								</div>
 								<div class='ten columns'>
-									<p class='email_body'>{{ post.text }}</p>
+									<p class='email_body'>{{ post.text|trim|sanitize|safe }}</p>
 								</div>
 							</div>
 							<div class='time row'>
 								<div class='twelve columns'>
-									<p>{{ post.time.strftime('%m/%d/%Y %I:%M%p') }}</p>
+									<p>Posted {{ post.get_time()|human_time }} ago</p>
 								</div>
 							</div>
 						</div>

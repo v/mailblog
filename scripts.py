@@ -1,3 +1,4 @@
+# vim: set expandtab sw=4 ts=4 softtabstop=4 autoindent smartindent:
 from secrets import imap_username, imap_password, imap_host
 import imaplib
 import email
@@ -129,6 +130,6 @@ def remove_sig(email):
     return email
 
 if __name__ == '__main__':
-    #mock_email('Herp <herp@herp.com>', 'ru_cs@googlegroups.com', 'herp', 'derp')
-    reset_db()
-    imap_populate()
+    mock_email('Herp <herp@herp.com>', 'ru_cs@googlegroups.com', 'herp', '<a href="http://google.com/">test</a>')
+    # reset_db()
+    # imap_populate()

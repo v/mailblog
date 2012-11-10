@@ -1,3 +1,4 @@
+# vim: set expandtab sw=4 ts=4 softtabstop=4 autoindent smartindent:
 from peewee import CharField, ForeignKeyField, DateTimeField, TextField, IntegerField, RawQuery
 from hashlib import md5
 from app import db
@@ -45,4 +46,5 @@ class Email(db.Model):
     def get_time(self):
         if type(self.time) != datetime.datetime:
             self.time = parse(self.time)
+        self.time = self.time.replace(tzinfo=None)
         return self.time
