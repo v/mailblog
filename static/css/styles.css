@@ -9,6 +9,25 @@ body {
 	background: url('/static/img/subtle_dots.png');
 }
 
+#banner {
+	background: url('/static/img/type.png');
+	box-shadow: 0 0 15px;
+	margin: 25px 0;
+	padding: 75px 0;
+	text-align: center;
+}
+
+#banner h1 {
+	color: #EEE;
+	font-family: 'Black Ops One', cursive;
+	font-size: 64pt;
+}
+
+#banner .subheader {
+	color: #EEE;
+	font-size: 12pt;
+}
+
 nav.row {
 	margin-bottom: 20px;
 }
