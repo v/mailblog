@@ -2,6 +2,8 @@ from peewee import CharField, ForeignKeyField, DateTimeField, TextField, Integer
 from hashlib import md5
 from app import db
 import re
+import datetime
+from dateutil.parser import parse
 
 class User(db.Model):
     name = CharField()
@@ -40,3 +42,7 @@ class Email(db.Model):
                 return result[0] + 1
             return 1
 
+    def get_time(self):
+        if type(self.time) != datetime.datetime:
+            self.time = parse(self.time)
+        return self.time

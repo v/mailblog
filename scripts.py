@@ -5,8 +5,6 @@ import email
 import requests
 import json
 import re
-import subprocess
-import shlex
 
 site_url = 'http://0.0.0.0:8888'
 
@@ -71,21 +69,22 @@ def imap_populate():
     for email_id in reversed(email_ids[0].split()):
         typ, data = mail.fetch(email_id, '(RFC822)')
 
-        i += 1
         email_parsed = email.message_from_string(data[0][1])
         #email_text = email_parsed.get_payload()[0].get_payload()
         email_text = get_text_block(email_parsed)
 
         if email_text: 
-            unquoted_text = unquote(email_text)
+            unquoted_text = remove_sig(unquote(email_text))
             print unquoted_text
 
             _from = email_parsed.get('From')
             subject = email_parsed.get('Subject')
+            time = email_parsed.get('Date')
 
             if subject and _from:
-                mock_email(_from, 'ru_cs@googlegroups.com', subject, unquoted_text)
-def mock_email(_from, to, subject, text, html=None):
+                mock_email(_from, 'ru_cs@googlegroups.com', subject, unquoted_text, time=time)
+        i += 1
+def mock_email(_from, to, subject, text, html=None, time=None):
     if not html:
         html = text
 
@@ -95,6 +94,7 @@ def mock_email(_from, to, subject, text, html=None):
         'subject': subject,
         'text': text,
         'to': to,
+        'time': time,
     }
 
     r = requests.post(site_url+'/callback', data=json.dumps(email_object))
@@ -115,6 +115,15 @@ def unquote(email):
 
     regex = re.compile(gmail_quote, flags=re.DOTALL)
 
+    m = re.search(regex, email)
+    if m:
+        return email[:m.start()]
+    return email
+
+def remove_sig(email):
+    sig = '(\s+--(=20)*\s+.*)'
+
+    regex = re.compile(sig, flags=re.DOTALL)
     m = re.search(regex, email)
     if m:
         return email[:m.start()]
