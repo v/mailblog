@@ -42,7 +42,14 @@ def home(page_num):
 
     num_pages = math.ceil(Email.select().group_by(Email.thread).count()/float(POSTS_PER_PAGE))
 
-    return render_template('home.html', threads=threads, page_num=page_num, num_pages=num_pages)
+    view_data = {
+        'threads'   : threads,
+        'page_num'  : page_num,
+        'num_pages' : num_pages,
+        'site_name' : app.config['SITE_NAME'],
+        'site_slogan'    : app.config['SITE_SLOGAN'],
+    }
+    return render_template('home.html', **view_data)
 
 
 @app.route('/callback', methods=['GET', 'POST'])
@@ -55,7 +62,7 @@ def callback():
     name, email = parse_email(email_from) 
     
     user = User.get_or_create(name=name, email=email)
-    thread=Email.get_thread(data['subject'])
+    thread = Email.get_thread(data['subject'])
 
     if 'time' in data:
         time = parse(data['time'])

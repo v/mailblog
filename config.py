@@ -9,7 +9,8 @@ class Configuration(object):
     DEBUG = True
     SECRET_KEY = 'EPIUWYE)WYE&*W&TEFSGDSUHSTU(PWA^*WATGFESDIUASHDK:PD'
     UPLOAD_FOLDER = './uploads'
-
+    SITE_NAME = 'USACS'
+    SITE_SLOGAN = 'Undergraduate Student Alliance of Computer Scientists'
 
 class TestConfiguration(object):
     DATABASE = {
@@ -21,3 +22,5 @@ class TestConfiguration(object):
     SECRET_KEY = 'EPIUWYE)WYE&*W&TEFSGDSUHSTU(PWA^*WATGFESDIUASHDK:PD'
     TESTING = True
     UPLOAD_FOLDER = './uploads'
+    SITE_NAME = 'USACS'
+    SITE_SLOGAN = 'Undergraduate Student Alliance of Computer Scientists'
