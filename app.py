@@ -5,6 +5,7 @@
 from flask import Flask, request, render_template
 from flask_peewee.db import Database
 from peewee import RawQuery
+from bs4 import BeautifulSoup
 
 import json
 import re
@@ -27,11 +28,11 @@ from models import User, Email
 @app.route('/<int:page_num>', methods=['GET', 'POST'])
 def home(page_num):
     """ Handles the home page rendering."""
-    thread_id_query = 'SELECT DISTINCT thread FROM email ORDER BY thread DESC, id ASC LIMIT %d, %d' % \
+    thread_id_query = 'SELECT DISTINCT thread FROM email ORDER BY thread DESC, time ASC LIMIT %d, %d' % \
             (POSTS_PER_PAGE*(page_num-1), POSTS_PER_PAGE)
     thread_ids = [email.thread for email in RawQuery(Email, thread_id_query)]
 
-    threads_query = 'SELECT * FROM email WHERE thread IN %s ORDER BY thread DESC, id ASC' % str(tuple(thread_ids))
+    threads_query = 'SELECT * FROM email WHERE thread IN %s ORDER BY thread DESC, time ASC' % str(tuple(thread_ids))
     all_threads = RawQuery(Email, threads_query)
 
     num_pages = math.ceil(Email.select().group_by(Email.thread).count()/float(POSTS_PER_PAGE))
@@ -78,3 +79,24 @@ def parse_email(text):
     if m:
         return m.group(1).strip(), m.group(2).strip()
     return text, text
+
+VALID_TAGS = ['strong', 'em', 'p', 'ul', 'li', 'br', 'table', 'tr', 'td', 'b', 'i', 'a']
+def sanitize_html(value):
+    try:
+        soup = BeautifulSoup(value)
+
+        for tag in soup.find_all(True):
+            if tag.name == 'a' and tag.attrs.has_key('href'):
+                tag.attrs = tag.attrs = {
+                    'href' : tag.attrs['href']
+                }
+            else:
+                tag.attr = {}
+            if tag.name not in VALID_TAGS:
+                tag.hidden = True
+
+        return soup.renderContents()
+    except:
+        return value
+
+app.jinja_env.filters['sanitize'] = sanitize_html

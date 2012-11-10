@@ -8,7 +8,7 @@ $(function() {
 		if (text[0] === 'S') text = 'Hide replies';
 		else text = 'Show replies';
 		$(this).text(text);
-		$(this).closest('.show_replies').siblings('.replies').slideToggle();
+		$(this).closest('.show_replies').siblings('.replies').stop().slideToggle();
 	});
 
 });

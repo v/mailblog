@@ -41,7 +41,7 @@ nav.row {
 }
 
 .post {
-	background: #515151;
+	/* background: #66D9EF; */
 	padding: 20px 20px 0 20px;
 }
 
@@ -54,7 +54,7 @@ nav.row {
 }
 
 .show_replies {
-	background: #00B4FF;
+	/* background: #00B4FF; */
 	padding: 20px;
 }
 
@@ -63,7 +63,7 @@ nav.row {
 }
 
 .reply {
-	background: #00B4FF;
+	/* background: #00B4FF; */
 	margin-bottom: 1px !important;
 	padding: 20px 20px 0 20px;
 }
