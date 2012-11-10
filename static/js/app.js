@@ -4,7 +4,11 @@ $(function() {
 	});
 
 	$('.show_replies a').on('click', function() {
-		$(this).closest('.show_replies').hide().siblings('.replies').show();
+		var text = $(this).text();
+		if (text[0] === 'S') text = 'Hide replies';
+		else text = 'Show replies';
+		$(this).text(text);
+		$(this).closest('.show_replies').siblings('.replies').slideToggle();
 	});
 
 });
