@@ -3,13 +3,16 @@
     Sniper is an application that hits the Rutgers SOC API and notifies users when a class opens up. """
 
 from flask import Flask, request, render_template
-import json
-import re
 from flask_peewee.db import Database
 from peewee import RawQuery
 
-
+import json
+import re
 import os
+import datetime
+import math
+
+POSTS_PER_PAGE = 10
 
 # Set up the Flask application
 app = Flask(__name__)
@@ -18,14 +21,18 @@ if 'EMAILCLASS' in os.environ:
     app.config.from_object(os.environ['EMAILCLASS'])
 
 db = Database(app)
-
-import datetime
 from models import User, Email
 
-@app.route('/', methods=['GET', 'POST'])
-def home():
+@app.route('/', methods=['GET', 'POST'], defaults={'page_num' : 1})
+@app.route('/<int:page_num>', methods=['GET', 'POST'])
+def home(page_num):
     """ Handles the home page rendering."""
-    all_threads = RawQuery(Email, 'SELECT * FROM email ORDER BY thread DESC')
+    threads_query = 'SELECT * FROM email ORDER BY thread DESC LIMIT %d, %d' % \
+            (POSTS_PER_PAGE*(page_num-1), POSTS_PER_PAGE)
+
+    all_threads = RawQuery(Email, threads_query)
+    num_pages = math.ceil(Email.select().count()/float(POSTS_PER_PAGE))
+    print num_pages
     threads = []
 
     last_thread_id = None
@@ -36,7 +43,7 @@ def home():
             threads.append([])
         threads[-1].append(email)
         last_thread_id = thread_id
-    return render_template('home.html', threads=threads)
+    return render_template('home.html', threads=threads, page_num=page_num, num_pages=num_pages)
 
 
 @app.route('/callback', methods=['GET', 'POST'])
