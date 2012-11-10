@@ -36,7 +36,7 @@ class Email(db.Model):
         else:
             query = db.database.execute_sql('SELECT MAX(thread) FROM email')
             result = query.fetchone()
-            if result[0]:
+            if result[0] != None:
                 return result[0] + 1
-            return 0
+            return 1
 
