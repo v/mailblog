@@ -113,7 +113,7 @@ def reset_db():
 
 
 if __name__ == '__main__':
-    #mock_email('Herp <herp@herp.com>', 'ru_cs@googlegroups.com', 'herp', 'derp')
-    reset_db()
-    imap_populate()
+    # mock_email('gerard <grardb@gmail.com>', 'vaibhav <vaibhav2614@gmail.com>', 're: HERP DERP', "herp in the derp lerp")
+    # reset_db()
+    # imap_populate()
 

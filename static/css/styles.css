@@ -45,6 +45,10 @@ nav.row {
 	padding: 20px 20px 0 20px;
 }
 
+.email_body {
+	white-space: pre-wrap;
+}
+
 .replies {
 	display: none;
 }
