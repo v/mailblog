@@ -6,6 +6,8 @@ ago==0.0.3
 argparse==1.2.1
 beautifulsoup4==4.1.3
 flask-peewee==0.6.1
+## FIXME: could not find svn URL in dependency_links for this package:
+flup==1.0.3.dev-20110405
 peewee==2.0.3
 python-dateutil==2.1
 requests==0.14.2
