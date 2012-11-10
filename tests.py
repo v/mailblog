@@ -1,3 +1,4 @@
+# vim: set expandtab sw=4 ts=4 softtabstop=4 autoindent smartindent:
 import requests
 from app import db
 import json
@@ -30,5 +31,3 @@ def mock_email(name, email, to, subject, text, html=None):
     r = requests.post(site_url+'/callback', data=json.dumps(email_object))
     print r.text
     assert r.status_code == 200
-
-mock_email('herp', 'herp@herp.com', 'usacs@sendgriddemos.com', 'Herp Subject', 'Childish gambinooo')

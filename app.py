@@ -2,7 +2,7 @@
 """ This file sets up the Flask Application for sniper.
     Sniper is an application that hits the Rutgers SOC API and notifies users when a class opens up. """
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 import json
 import re
 from flask_peewee.db import Database
@@ -28,7 +28,6 @@ class User(db.Model):
     def gravatar_url(self, size=80):
         return 'http://www.gravatar.com/avatar/%s?d=identicon&s=%d' % \
             (md5(self.email.strip().lower().encode('utf-8')).hexdigest(), size)
-
 
 class Email(db.Model):
     reply_regex = re.compile('[Rr][Ee]\:')
@@ -60,7 +59,18 @@ class Email(db.Model):
 @app.route('/', methods=['GET', 'POST'])
 def home():
     """ Handles the home page rendering."""
-    return 'Hello usacs'
+    all_threads = RawQuery(Email, 'SELECT * FROM email ORDER BY thread DESC')
+    threads = []
+
+    last_thread_id = None
+
+    for email in all_threads:
+        thread_id = email.thread
+        if thread_id != last_thread_id:
+            threads.append([])
+        threads[-1].append(email)
+        last_thread_id = thread_id
+    return render_template('home.html', threads=threads)
 
 
 @app.route('/callback', methods=['GET', 'POST'])
