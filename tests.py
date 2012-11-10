@@ -15,7 +15,7 @@ def mock_sendgrid():
     print r.text
     assert r.status == 200
 
-def mock_email(name, email, subject, text, html=None):
+def mock_email(name, email, to, subject, text, html=None):
     if not html:
         html = text
 
@@ -24,10 +24,11 @@ def mock_email(name, email, subject, text, html=None):
         'html': html,
         'subject': subject,
         'text': text,
+        'to': to,
     }
 
-    r = requests.post(site_url+'/callback', data=json.loads(email_object))
+    r = requests.post(site_url+'/callback', data=json.dumps(email_object))
     print r.text
-    assert r.status == 200
+    assert r.status_code == 200
 
-mock_email('herp', 'herp@herp.com', 'Herp Subject', 'Childish gambinooo')
+mock_email('herp', 'herp@herp.com', 'usacs@sendgriddemos.com', 'Herp Subject', 'Childish gambinooo')

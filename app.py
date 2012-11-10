@@ -6,10 +6,13 @@ import json
 import re
 from flask_peewee.db import Database
 
+import os
+
 # Set up the Flask application
 app = Flask(__name__)
 app.config.from_object('config.Configuration')
-app.config.from_envvar('EMAILCLASS')
+if 'EMAILCLASS' in os.environ:
+    app.config.from_envvar('EMAILCLASS')
 
 db = Database(app)
 
