@@ -2,10 +2,11 @@
 """ This file sets up the Flask Application for sniper.
     Sniper is an application that hits the Rutgers SOC API and notifies users when a class opens up. """
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 import json
 import re
 from flask_peewee.db import Database
+from peewee import RawQuery
 
 
 import os
@@ -19,13 +20,23 @@ if 'EMAILCLASS' in os.environ:
 db = Database(app)
 
 import datetime
-
 from models import User, Email
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     """ Handles the home page rendering."""
-    return 'Hello usacs'
+    all_threads = RawQuery(Email, 'SELECT * FROM email ORDER BY thread DESC')
+    threads = []
+
+    last_thread_id = None
+
+    for email in all_threads:
+        thread_id = email.thread
+        if thread_id != last_thread_id:
+            threads.append([])
+        threads[-1].append(email)
+        last_thread_id = thread_id
+    return render_template('home.html', threads=threads)
 
 
 @app.route('/callback', methods=['GET', 'POST'])
