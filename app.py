@@ -107,7 +107,7 @@ def parse_email(text):
         return m.group(1).strip('\'" '), m.group(2).strip('\'" ')
     return text, text
 
-VALID_TAGS = ['strong', 'em', 'p', 'ul', 'li', 'br', 'table', 'tr', 'td', 'b', 'i', 'a']
+VALID_TAGS = ['strong', 'em', 'p', 'ul', 'li', 'br', 'table', 'tr', 'td', 'b', 'i', 'a', 'img']
 def sanitize_html(value):
     try:
         soup = BeautifulSoup(value)
